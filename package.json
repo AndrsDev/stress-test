@@ -9,6 +9,7 @@
   "author": "Andrés Sanabria",
   "license": "ISC",
   "dependencies": {
-    "pg": "^8.3.3"
+    "dotenv": "^8.2.0",
+    "pg": "8.3.3"
   }
 }
