@@ -11,7 +11,6 @@ const client = new Client({
 
 
 (async () => {
-  console.log(process.env.PG_HOST);
   await client.connect()
   const res = await client.query('SELECT $1::text as message', ['Hello world!'])
   console.log(res.rows[0].message) // Hello world!
