@@ -28,10 +28,23 @@ function read(message) {
 }
 
 (async () => {
-  // await client.connect();
-  const name = await read("What is your name?");
+  write("------------------------------------------------------------");
+  write("Universidad InterNaciones");
+  write("Desempeño de Sistemas");
+  write("Andrés Enrique Sanabria Flores 17030008");
+  write("------------------------------------------------------------");
 
-  write(`Hello ${name}`);
+  write("Menú");
+  write("1. Creación de usuarios (datos personales, correo, contraseña, etc.)");
+  write("2. Apertura de cuentas monetarias y de ahorro");
+  write("3. Efectuar transferencias entre cuentas");
+  write("4. Obtener el historial de movimientos de todas las cuentas");
+  write("5. Obtener el balance total de todas las cuentas");
+  const option = await read("\nIngrese el número test para iniciarlo:");
+
+  // await client.connect();
+
+  write(`Opción elegida ${option}`);
 
   rl.close();
 
