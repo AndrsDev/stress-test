@@ -11,7 +11,6 @@ CREATE TABLE "client" (
   "first_name" varchar,
   "last_name" varchar,
   "birthday" date,
-  "email" varchar,
   "address" varchar,
   "user" int,
   "phone" int,
