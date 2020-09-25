@@ -48,7 +48,7 @@ function read(message) {
 
   switch (option) {
     case "1":
-      await createClients(100000);
+      await createClients(10000);
       break;
   
     default:
