@@ -44,8 +44,6 @@ function read(message) {
   write("5. Obtener el balance total de todas las cuentas");
   const option = await read("\nIngrese el número test para iniciarlo:");
 
-
-
   switch (option) {
     case "1":
       await createClients(10);
@@ -56,17 +54,18 @@ function read(message) {
     case "3":
       await createTransfers(10);
       break;
-  
+    case "4":
+      await getAllTransactions();
+      break;
+    case "5":
+      await getTotalBalance();
+      break;
     default:
+      write("No se ha seleccionado una opción correcta, finalizando el programa.");
       break;
   }
-
-
-  rl.close();
-
-  // const res = await client.query('SELECT NOW()');
-  // console.log(res.rows[0]);
   write("\n");
+  rl.close();
   await client.end();
 })();
 
@@ -171,4 +170,33 @@ async function createTransfers(number) {
 
   await Promise.all(promises);
   write(`Creación de transferencias finalizada.`)
+}
+
+async function getAllTransactions() {
+  write(`\nIniciando lectura de todas las transacciones.`)
+  write("...");
+  const query = `
+    select 
+      transaction.id,
+      transaction.date,
+      transaction.amount,
+      transaction_type.name
+    from "transaction" 
+    inner join "transaction_type" ON transaction.type = transaction_type.id;
+  `;
+
+  const result = await client.query(query);
+  write(result.rows);
+  write(`Lectura de todas las transaccines finalizada.`)
+}
+
+async function getTotalBalance() {
+  write(`\nIniciando suma de balance de todas las cuentas.`)
+  write("...");
+  const query = `
+    select sum(balance) from "account";
+  `;
+  const result = await client.query(query);
+  write(result.rows);
+  write(`Suma del balance de todas las cuentas finalizada.`)
 }
