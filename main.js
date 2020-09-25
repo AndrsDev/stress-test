@@ -53,6 +53,9 @@ function read(message) {
     case "2":
       await createAccounts(10);
       break;
+    case "3":
+      await createTransfers(10);
+      break;
   
     default:
       break;
@@ -131,4 +134,41 @@ async function createAccounts(number) {
 
   await Promise.all(promises);
   write(`Creación de cuentas finalizada.`)
+}
+
+async function createTransfers(number) {
+  write(`\nIniciando creación de ${number} transferencias.`)
+  write("...");
+  const query = `
+    BEGIN;
+      insert into "transaction" (
+        date, amount, type, account
+      ) values (
+        current_timestamp,
+        100,
+        2,
+        1
+      );
+      insert into "transaction" (
+        date, amount, type, account
+      ) values (
+        current_timestamp,
+        100,
+        1,
+        2
+      );
+      UPDATE "account" SET balance = balance - 100.00
+        WHERE id = 1;
+      UPDATE "account" SET balance = balance + 100.00
+        WHERE id = 2;
+    COMMIT;
+  `;
+
+  const promises = [];
+  for (let i = 0; i < number; i++) {
+    promises.push(client.query(query));    
+  }
+
+  await Promise.all(promises);
+  write(`Creación de transferencias finalizada.`)
 }
