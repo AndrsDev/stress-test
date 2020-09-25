@@ -38,7 +38,7 @@ function read(message) {
 
   write("Menú");
   write("1. Creación de clientes (datos personales, correo, contraseña, etc.)");
-  write("2. Apertura de cuentas monetarias y de ahorro");
+  write("2. Apertura de cuentas monetarias");
   write("3. Efectuar transferencias entre cuentas");
   write("4. Obtener el historial de movimientos de todas las cuentas");
   write("5. Obtener el balance total de todas las cuentas");
@@ -48,7 +48,10 @@ function read(message) {
 
   switch (option) {
     case "1":
-      await createClients(10000);
+      await createClients(10);
+      break;
+    case "2":
+      await createAccounts(10);
       break;
   
     default:
@@ -60,11 +63,13 @@ function read(message) {
 
   // const res = await client.query('SELECT NOW()');
   // console.log(res.rows[0]);
+  write("\n");
   await client.end();
 })();
 
 async function createClients(number) {
-  write(`\nIniciando inserción de ${number} clientes...`)
+  write(`\nIniciando inserción de ${number} clientes.`)
+  write("...");
   const query = `
     insert into "client" (
       created, 
@@ -97,5 +102,33 @@ async function createClients(number) {
   }
 
   await Promise.all(promises);
-  write(`Inserción de ${number} clientes finalizada.`)
+  write(`Inserción de clientes finalizada.`)
+}
+
+async function createAccounts(number) {
+  write(`\nIniciando creación de ${number} cuentas.`)
+  write("...");
+  const query = `
+    insert into "account" (
+      created,
+      balance,
+      currency,
+      status,
+      type
+    ) values (
+      current_timestamp,
+      0,
+      1,
+      1,
+      1
+    );
+  `;
+
+  const promises = [];
+  for (let i = 0; i < number; i++) {
+    promises.push(client.query(query));    
+  }
+
+  await Promise.all(promises);
+  write(`Creación de cuentas finalizada.`)
 }

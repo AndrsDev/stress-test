@@ -42,7 +42,7 @@ CREATE TABLE "account" (
   "created" timestamp,
   "balance" int,
   "currency" int,
-  "clent" int,
+  "client" int,
   "status" int,
   "type" int
 );
