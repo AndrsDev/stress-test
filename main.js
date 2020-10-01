@@ -43,18 +43,18 @@ function read(message) {
   write("4. Obtener el historial de movimientos de todas las cuentas");
   write("5. Obtener el balance total de todas las cuentas");
   const option = await read("\nIngrese el número test para iniciarlo:");
-
+  let n = 0;
   switch (option) {
     case "1":
-      const n = await read("\n¿Cuántos clientes desea crear?");
+      n = await read("\n¿Cuántos clientes desea crear?");
       await createClients(n);
       break;
     case "2":
-      const n = await read("\n¿Cuántas cuentas desea abrir?");
+      n = await read("\n¿Cuántas cuentas desea abrir?");
       await createAccounts(n);
       break;
     case "3":
-      const n = await read("\n¿Cuántas transferencias desea realizar?");
+      n = await read("\n¿Cuántas transferencias desea realizar?");
       await createTransfers(n);
       break;
     case "4":
