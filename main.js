@@ -46,13 +46,16 @@ function read(message) {
 
   switch (option) {
     case "1":
-      await createClients(10);
+      const n = await read("\n¿Cuántos clientes desea crear?");
+      await createClients(n);
       break;
     case "2":
-      await createAccounts(10);
+      const n = await read("\n¿Cuántas cuentas desea abrir?");
+      await createAccounts(n);
       break;
     case "3":
-      await createTransfers(10);
+      const n = await read("\n¿Cuántas transferencias desea realizar?");
+      await createTransfers(n);
       break;
     case "4":
       await getAllTransactions();
